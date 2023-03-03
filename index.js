@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 });
 
 //post route for making requests
-app.post('/', async (req, res) => {
+app.post('/gptResponse', async (req, res) => {
 	const { message } = req.body;
 	try {
 		let response;
