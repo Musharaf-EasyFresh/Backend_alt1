@@ -47,6 +47,7 @@ app.post("/gptResponse", async (req, res) => {
     );
     if ("text" in response) res.json(response);
   } catch (e) {
+	console.log(e);
     console.error(e);
     res.sendStatus(400);
   }
