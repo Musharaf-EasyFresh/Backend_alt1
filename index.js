@@ -56,7 +56,13 @@ app.post("/", async (req, res) => {
   var message = req.body.message;
   console.log("this is mesage from API");
   console.log(message);
-  console.log('complete body');
+  if (message == 0) {
+    response.text = "Sorry, Could not understand your audio";
+    if ("text" in response) res.json(response);
+    return;
+  }
+
+  console.log("complete body");
   console.log(req.body);
   try {
     let response;
