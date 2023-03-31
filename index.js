@@ -53,7 +53,9 @@ app.post("/gptResponse", async (req, res) => {
   }
 });
 app.post("/", async (req, res) => {
-  const { message } = req.body;
+  var message = req.body.message;
+  console.log("this is mesage from API");
+  console.log(message);
   try {
     let response;
     if (req.body.parentMessageId) {
