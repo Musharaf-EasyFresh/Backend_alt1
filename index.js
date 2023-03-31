@@ -72,7 +72,7 @@ app.post("/", async (req, res) => {
     }
     console.log(response.text);
     response.text = response.text.replace(
-      /Hi there|Hey there|Hello there|Hi there!|Hey there!|Hello there!/gi,
+      /Hi there|Hey there|Hello there|Hi there!|Hey there!|Hello there!|Hi|Hello|Hey/gi,
       "Salam"
     );
     if ("text" in response) res.json(response);
