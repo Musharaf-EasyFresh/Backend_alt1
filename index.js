@@ -92,7 +92,17 @@ app.post("/", async (req, res) => {
         timeoutMs: 1 * 60 * 1000, // 1 Minute Timeout
       });
     }
+    console.log("this the response from GPT");
     console.log(response.text);
+
+    if (response.text == "") {
+      console.log("Reponse from GPT is empty may be due to time out");
+      if (language == "English") {
+        response.text = "Can you please resend your question?";
+      } else {
+        response.text = "کیا آپ اپنا سوال دوبارہ بھیج سکتے ہیں؟";
+      }
+    }
     response.text = response.text.replace(
       /Hi there|Hey there|Hello there|Hi there!|Hey there!|Hello there!|Hi |Hello |Hey |Hey!|Hi!|Hello!/g,
       "Salam"
@@ -100,8 +110,8 @@ app.post("/", async (req, res) => {
     res.send(response);
     // if ("text" in response) res.json(response);
   } catch (e) {
-    console.log(e);
-    console.error(e);
+    // console.log(e);
+    console.log(e.message);
     var busyResponse;
     switch (language) {
       case "English":
@@ -122,11 +132,12 @@ app.post("/", async (req, res) => {
     res.send(response);
   }
 });
+
 app.post("/urduToRomanUrduTransliterationByGPT", async (req, res) => {
   var message = req.body.message;
   // var prompt = `You are a urdu to Roman Urdu Transliterator`;
   var prompt = `Transliterate the given text in Roman Urdu`;
-  var language = req.body.language;
+  // var language = req.body.language;
   // console.log("given prompt");
   // console.log(prompt);
   // console.log("complete body");
@@ -141,8 +152,11 @@ app.post("/urduToRomanUrduTransliterationByGPT", async (req, res) => {
     res.send({ message: response.text });
     // if ("text" in response) res.json(response);
   } catch (e) {
-    console.log(e);
-    console.error(e);
+    console.log(e.message);
+    res.send({
+      message:
+        "Hamein afsos hai hum aap ke sawal ka jawab abhi nahi de paayenge kyunki abhi hamare paas bohat sare sawal mojood ho chuke hain.\nBehrhal, hum bohat jald waapis honge aap ke sawalat ke jawabat ke saath.\nAap ke taawun ka bohat shukriya.",
+    });
     // var busyResponse;
     // switch (language) {
     //   case "English":
@@ -159,13 +173,8 @@ app.post("/urduToRomanUrduTransliterationByGPT", async (req, res) => {
     //     break;
     // }
     // response.text = busyResponse;
-    res.send({
-      message:
-        "Hamein afsos hai hum aap ke sawal ka jawab abhi nahi de paayenge kyunki abhi hamare paas bohat sare sawal mojood ho chuke hain.\nBehrhal, hum bohat jald waapis honge aap ke sawalat ke jawabat ke saath.\nAap ke taawun ka bohat shukriya.",
-    });
   }
 });
-
 
 // listeninng
 app.listen("3080", () => console.log("listening on port 3080"));
