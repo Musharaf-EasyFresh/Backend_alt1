@@ -93,7 +93,7 @@ app.post("/", async (req, res) => {
       });
     }
     console.log("this the response from GPT");
-    console.log(response.text);
+    // console.log(response.text);
 
     if (response.text == "") {
       console.log("Reponse from GPT is empty may be due to time out");
@@ -102,6 +102,8 @@ app.post("/", async (req, res) => {
       } else {
         response.text = "کیا آپ اپنا سوال دوبارہ بھیج سکتے ہیں؟";
       }
+    } else {
+      console.log("response was not empty");
     }
     response.text = response.text.replace(
       /Hi there|Hey there|Hello there|Hi there!|Hey there!|Hello there!|Hi |Hello |Hey |Hey!|Hi!|Hello!/g,
