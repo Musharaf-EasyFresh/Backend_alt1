@@ -19,7 +19,7 @@ const chatgpt = new ChatGPTAPI({
 
 // dummy route to test
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World! this is backend alt 1");
 });
 
 //post route for making requests
